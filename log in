@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Royale Hotel - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #d9c5a0, #f5ebe0, #e6ccb2);
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Custom Toast Notification Styles */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .toast {
+      background-color: #8b6b4c;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+  <div id="toast-container"></div>
+  
+  <div class="bg-white/95 rounded-2xl shadow-2xl p-10 w-[380px] text-center">
+    <h1 class="text-3xl font-bold text-[#4a2c18] mb-2">Aurora Royale Hotel</h1>
+    <p class="text-[#8b6b4c] mb-8">Your comfort is our priority.</p>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="space-y-4">
+      <input type="text" id="username" placeholder="Username" required
+        class="w-full px-4 py-3 rounded-lg border border-[#c9a87c]/40 focus:ring-2 focus:ring-[#c9a87c] outline-none">
+      <input type="password" id="password" placeholder="Password" required
+        class="w-full px-4 py-3 rounded-lg border border-[#c9a87c]/40 focus:ring-2 focus:ring-[#c9a87c] outline-none">
+
+      <button type="submit"
+        class="w-full bg-[#8b6b4c] text-white py-3 rounded-lg hover:bg-[#4a2c18] transition-all duration-300 shadow-md">
+        Log In
+      </button>
+    </form>
+
+    <div class="mt-6 text-sm text-[#8b6b4c]">
+      <p>Don’t have an account? <a href="#" class="text-[#4a2c18] font-semibold hover:underline">Register here</a></p>
+      <p class="mt-2">Want to sign out? <a href="#" onclick="showToast('Signed Out Successfully! Returning to Login.')" class="text-[#4a2c18] font-semibold hover:underline">Sign Out</a></p>
+    </div>
+
+    <p class="mt-8 text-xs text-[#a88c6a]">© 2025 Aurora Royale Hotel • All Rights Reserved</p>
+  </div>
+
+  <script>
+    // --- Custom Toast Notification Logic (Replacing alert()) ---
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        container.appendChild(toast);
+
+        // Show the toast
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        // Hide and remove the toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            // Remove from DOM after transition
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+
+    // --- Login Logic ---
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Simple client-side validation (You can implement more robust checks here)
+      if (username && password) {
+        // Store a simple login state (Requirement: Data saving/reading in front-end only)
+        localStorage.setItem('isLoggedIn', 'true');
+        showToast('Login Successful! Redirecting to booking page...');
+        // Redirect after a short delay to allow toast visibility
+        setTimeout(() => {
+            window.location.href = 'booking.html';
+        }, 800);
+      } else {
+        showToast('Please enter both username and password.');
+      }
+    });
+
+    // --- Check if user is already logged in ---
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        // Automatically redirect logged-in users to the booking page
+        window.location.href = 'booking.html';
+    }
+  </script>
+</body>
+</html>
