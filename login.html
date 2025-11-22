@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Royale Hotel - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #d9c5a0, #f5ebe0, #e6ccb2);
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+  <div class="bg-white/95 rounded-2xl shadow-2xl p-10 w-[380px] text-center">
+    <h1 class="text-3xl font-bold text-[#4a2c18] mb-2">Aurora Royale Hotel</h1>
+    <p class="text-[#8b6b4c] mb-8">Your comfort is our priority.</p>
+
+    <!-- LOGIN FORM -->
+    <form action="booking.html" method="get" class="space-y-4">
+      <input type="text" placeholder="Username" required
+        class="w-full px-4 py-3 rounded-lg border border-[#c9a87c]/40 focus:ring-2 focus:ring-[#c9a87c] outline-none">
+      <input type="password" placeholder="Password" required
+        class="w-full px-4 py-3 rounded-lg border border-[#c9a87c]/40 focus:ring-2 focus:ring-[#c9a87c] outline-none">
+
+      <button type="submit"
+        class="w-full bg-[#8b6b4c] text-white py-3 rounded-lg hover:bg-[#4a2c18] transition-all duration-300 shadow-md">
+        Log In
+      </button>
+    </form>
+
+    <div class="mt-6 text-sm text-[#8b6b4c]">
+      <p>Don’t have an account? <a href="#" class="text-[#4a2c18] font-semibold hover:underline">Register here</a></p>
+      <p class="mt-2">Want to sign out? <a href="#" class="text-[#4a2c18] font-semibold hover:underline">Sign Out</a></p>
+    </div>
+
+    <p class="mt-8 text-xs text-[#a88c6a]">© 2025 Aurora Royale Hotel • All Rights Reserved</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Royale Hotel - Payment</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { 
+    font-family: 'Poppins', sans-serif; 
+    background: linear-gradient(135deg, #e7d8c3, #f7efe3, #e6ccb2); 
+    color: #4a2c18; 
+  }
+  .bg-brown-dark { background-color: #8b6b4c; }
+  .bg-brown-darker { background-color: #4a2c18; }
+  .text-brown-medium { color: #8b6b4c; }
+  .border-brown { border-color: #d6ad60; }
+  .hover-brown-darker:hover { background-color: #4a2c18; }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+
+<div class="bg-white/95 rounded-2xl shadow-2xl p-10 w-full max-w-md">
+  <h2 class="text-3xl font-bold mb-6 text-center">Payment</h2>
+
+  <!-- Booking Summary -->
+  <div class="bg-[#f5ebe0] p-4 rounded-lg mb-6 border border-brown">
+    <h3 class="text-brown-medium font-semibold mb-2">Booking Summary</h3>
+    <img id="room-img" src="" alt="Room Image" class="w-full h-48 object-cover rounded-lg mb-3">
+    <p id="room-name" class="font-semibold"></p>
+    <p id="dates"></p>
+    <p id="nights"></p>
+    <p id="price-per-night"></p>
+    <p id="total" class="font-semibold mt-2"></p>
+  </div>
+
+  <!-- Payment Form -->
+  <form class="space-y-5" onsubmit="return false;">
+    <div>
+      <label class="block mb-2">Full Name</label>
+      <input type="text" placeholder="John Doe" class="w-full p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none" required>
+    </div>
+
+    <div>
+      <label class="block mb-2">Email</label>
+      <input type="email" placeholder="example@mail.com" class="w-full p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none" required>
+    </div>
+
+    <div>
+      <label class="block mb-2">Payment Method</label>
+      <select id="paymentMethod" class="w-full p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none">
+        <option value="gcash">GCash</option>
+        <option value="card">Card</option>
+      </select>
+    </div>
+
+    <div id="card-info" class="hidden space-y-3">
+      <input type="text" placeholder="Card Number" class="w-full p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none">
+      <div class="flex gap-2">
+        <input type="text" placeholder="MM/YY" class="w-1/2 p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none">
+        <input type="text" placeholder="CVV" class="w-1/2 p-3 rounded-lg border border-brown focus:ring-2 focus:ring-[#d6ad60] outline-none">
+      </div>
+    </div>
+
+    <button onclick="payNow()" class="w-full bg-brown-dark text-white py-3 rounded-lg font-semibold hover-brown-darker transition-colors">
+      Pay Now
+    </button>
+  </form>
+</div>
+
+<script>
+  // Room images mapping
+  const roomImages = {
+    "Deluxe Room": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    "Premier Suite": "https://sn.solaireresort.com/sites/default/files/styles/square/public/banner/rooms/mobile/2024-05/Premier%20Suite%20-%20Bedroom%20angle%201%20%281%29.jpg?itok=x7pKKxl_",
+    "Family Suite": "https://www.zurihoteliloilo.com/wp-content/uploads/2022/08/family-room-4-700x430.jpg",
+    "Executive Room": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353",
+    "Couple’s Suite": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "Presidential Suite": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+  };
+
+  // Retrieve booking details from localStorage
+  let room = localStorage.getItem('room');
+  let price = parseFloat(localStorage.getItem('price'));
+  let nights = parseInt(localStorage.getItem('nights'));
+  let checkin = localStorage.getItem('checkin');
+  let checkout = localStorage.getItem('checkout');
+  let pricePerNight = (price / nights).toFixed(2);
+
+  function displayBooking() {
+    document.getElementById('room-img').src = roomImages[room] || "";
+    document.getElementById('room-name').innerText = `Room: ${room}`;
+    document.getElementById('dates').innerText = `Check-in: ${checkin} | Check-out: ${checkout}`;
+    document.getElementById('nights').innerText = `Nights: ${nights}`;
+    document.getElementById('price-per-night').innerText = `Price/Night: ₱${pricePerNight}`;
+    document.getElementById('total').innerText = `Total: ₱${price}`;
+  }
+
+  displayBooking();
+
+  // Payment method toggle
+  const paymentSelect = document.getElementById('paymentMethod');
+  const cardInfo = document.getElementById('card-info');
+  paymentSelect.addEventListener('change', () => {
+    if (paymentSelect.value === 'card') cardInfo.classList.remove('hidden');
+    else cardInfo.classList.add('hidden');
+  });
+
+  // Confirm payment
+  function payNow() {
+    const method = paymentSelect.value;
+    alert(`Payment successful via ${method.toUpperCase()}!\nTotal Paid: ₱${price}`);
+    localStorage.clear();
+    window.location.href = 'login.html';
+  }
+</script>
+
+</body>
+</html>
+
+
+
